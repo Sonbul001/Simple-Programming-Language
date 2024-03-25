@@ -1,32 +1,41 @@
 grammar gramatyka;
 
-prog: ( stat? NEWLINE )* 
+prog: ( stat? NEWLINE )*
     ;
 
-stat:	WRITE ' ' ID		#write
-	| READ ' ' ID   		#read
- 	| ID ' = ' expr		#assign
- 	| expr              #expression
+stat:	WRITE ID		#write
+	| READ ID   		#read
+ 	| ID '=' expr0		#assign
+ 	| expr0              #expression
   ;
 
-expr: expr ' ' ADD ' ' expr		#add
-    | expr MULTIPLY expr    #multiply
-    | expr MINUS expr   #minus
-    | expr DIVIDE expr  #divide
-    | expr AND expr    #and
-    | expr OR expr     #or
-    | expr XOR expr    #xor
-    | NEG expr     #neg
-	| value		 	#single
-   ;
+expr0:  expr1			            #single0
+    | expr1 (AND | OR | XOR) expr1	#logical
+;
+
+expr1:  expr2			            #single1
+    | expr2 (ADD | MINUS) expr2	    #plusminus
+;
+
+expr2: expr3    #single2
+    | expr3 (MULTIPLY | DIVIDE) expr3 #multidivide
+;
+
+expr3: expr4        #single3
+    | NEG expr4     #negative
+;
+
+expr4:   value              #single4
+       | '(' expr0 ')'		#par
+;
 
 value: ID
        | INT
        | STRING
        | REAL
-   ;	
+   ;
 
-WRITE:	'write' 
+WRITE:	'write'
    ;
 
 READ:	'read'
@@ -47,10 +56,10 @@ NEG: 'neg'
 ID:   ('a'..'z'|'A'..'Z')+
    ;
 
-INT:   '0'..'9'+
+REAL: '0'..'9'+'.''0'..'9'+
     ;
 
-REAL: '0'..'9'+'.''0'..'9'+
+INT:   '0'..'9'+
     ;
 
 ADD: '+'
@@ -71,5 +80,5 @@ STRING :  '"' ( ~('\\'|'"') )* '"'
 NEWLINE:	'\r'? '\n'
     ;
 
-WS:   (' '|'\t')+ { skip(); }
-    ;
+WS: [ \t]+ -> skip;
+
