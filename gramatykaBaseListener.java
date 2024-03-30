@@ -28,25 +28,25 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWrite(gramatykaParser.WriteContext ctx) { }
+	@Override public void enterInput(gramatykaParser.InputContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWrite(gramatykaParser.WriteContext ctx) { }
+	@Override public void exitInput(gramatykaParser.InputContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRead(gramatykaParser.ReadContext ctx) { }
+	@Override public void enterOutput(gramatykaParser.OutputContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRead(gramatykaParser.ReadContext ctx) { }
+	@Override public void exitOutput(gramatykaParser.OutputContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -64,37 +64,49 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(gramatykaParser.ExpressionContext ctx) { }
+	@Override public void enterLogic_val(gramatykaParser.Logic_valContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(gramatykaParser.ExpressionContext ctx) { }
+	@Override public void exitLogic_val(gramatykaParser.Logic_valContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSingle0(gramatykaParser.Single0Context ctx) { }
+	@Override public void enterNeg(gramatykaParser.NegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSingle0(gramatykaParser.Single0Context ctx) { }
+	@Override public void exitNeg(gramatykaParser.NegContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogical(gramatykaParser.LogicalContext ctx) { }
+	@Override public void enterLogic_opp(gramatykaParser.Logic_oppContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogical(gramatykaParser.LogicalContext ctx) { }
+	@Override public void exitLogic_opp(gramatykaParser.Logic_oppContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogic_par(gramatykaParser.Logic_parContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogic_par(gramatykaParser.Logic_parContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -148,30 +160,6 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSingle3(gramatykaParser.Single3Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSingle3(gramatykaParser.Single3Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNegative(gramatykaParser.NegativeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNegative(gramatykaParser.NegativeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterSingle4(gramatykaParser.Single4Context ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -184,13 +172,49 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPar(gramatykaParser.ParContext ctx) { }
+	@Override public void enterExpr_par(gramatykaParser.Expr_parContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPar(gramatykaParser.ParContext ctx) { }
+	@Override public void exitExpr_par(gramatykaParser.Expr_parContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMatrix(gramatykaParser.MatrixContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMatrix(gramatykaParser.MatrixContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVal_arr(gramatykaParser.Val_arrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVal_arr(gramatykaParser.Val_arrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogic_arr(gramatykaParser.Logic_arrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogic_arr(gramatykaParser.Logic_arrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -203,6 +227,18 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitValue(gramatykaParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogic_value(gramatykaParser.Logic_valueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogic_value(gramatykaParser.Logic_valueContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

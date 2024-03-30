@@ -17,29 +17,29 @@ public interface gramatykaListener extends ParseTreeListener {
 	 */
 	void exitProg(gramatykaParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code write}
+	 * Enter a parse tree produced by the {@code input}
 	 * labeled alternative in {@link gramatykaParser#stat}.
 	 * @param ctx the parse tree
 	 */
-	void enterWrite(gramatykaParser.WriteContext ctx);
+	void enterInput(gramatykaParser.InputContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code write}
+	 * Exit a parse tree produced by the {@code input}
 	 * labeled alternative in {@link gramatykaParser#stat}.
 	 * @param ctx the parse tree
 	 */
-	void exitWrite(gramatykaParser.WriteContext ctx);
+	void exitInput(gramatykaParser.InputContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code read}
+	 * Enter a parse tree produced by the {@code output}
 	 * labeled alternative in {@link gramatykaParser#stat}.
 	 * @param ctx the parse tree
 	 */
-	void enterRead(gramatykaParser.ReadContext ctx);
+	void enterOutput(gramatykaParser.OutputContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code read}
+	 * Exit a parse tree produced by the {@code output}
 	 * labeled alternative in {@link gramatykaParser#stat}.
 	 * @param ctx the parse tree
 	 */
-	void exitRead(gramatykaParser.ReadContext ctx);
+	void exitOutput(gramatykaParser.OutputContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code assign}
 	 * labeled alternative in {@link gramatykaParser#stat}.
@@ -53,41 +53,53 @@ public interface gramatykaListener extends ParseTreeListener {
 	 */
 	void exitAssign(gramatykaParser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code expression}
-	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * Enter a parse tree produced by the {@code logic_val}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(gramatykaParser.ExpressionContext ctx);
+	void enterLogic_val(gramatykaParser.Logic_valContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code expression}
-	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * Exit a parse tree produced by the {@code logic_val}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(gramatykaParser.ExpressionContext ctx);
+	void exitLogic_val(gramatykaParser.Logic_valContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code single0}
-	 * labeled alternative in {@link gramatykaParser#expr0}.
+	 * Enter a parse tree produced by the {@code neg}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingle0(gramatykaParser.Single0Context ctx);
+	void enterNeg(gramatykaParser.NegContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code single0}
-	 * labeled alternative in {@link gramatykaParser#expr0}.
+	 * Exit a parse tree produced by the {@code neg}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingle0(gramatykaParser.Single0Context ctx);
+	void exitNeg(gramatykaParser.NegContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code logical}
-	 * labeled alternative in {@link gramatykaParser#expr0}.
+	 * Enter a parse tree produced by the {@code logic_opp}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogical(gramatykaParser.LogicalContext ctx);
+	void enterLogic_opp(gramatykaParser.Logic_oppContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code logical}
-	 * labeled alternative in {@link gramatykaParser#expr0}.
+	 * Exit a parse tree produced by the {@code logic_opp}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogical(gramatykaParser.LogicalContext ctx);
+	void exitLogic_opp(gramatykaParser.Logic_oppContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code logic_par}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogic_par(gramatykaParser.Logic_parContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code logic_par}
+	 * labeled alternative in {@link gramatykaParser#expr_logic}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogic_par(gramatykaParser.Logic_parContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code single1}
 	 * labeled alternative in {@link gramatykaParser#expr1}.
@@ -137,53 +149,63 @@ public interface gramatykaListener extends ParseTreeListener {
 	 */
 	void exitMultidivide(gramatykaParser.MultidivideContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code single3}
-	 * labeled alternative in {@link gramatykaParser#expr3}.
-	 * @param ctx the parse tree
-	 */
-	void enterSingle3(gramatykaParser.Single3Context ctx);
-	/**
-	 * Exit a parse tree produced by the {@code single3}
-	 * labeled alternative in {@link gramatykaParser#expr3}.
-	 * @param ctx the parse tree
-	 */
-	void exitSingle3(gramatykaParser.Single3Context ctx);
-	/**
-	 * Enter a parse tree produced by the {@code negative}
-	 * labeled alternative in {@link gramatykaParser#expr3}.
-	 * @param ctx the parse tree
-	 */
-	void enterNegative(gramatykaParser.NegativeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code negative}
-	 * labeled alternative in {@link gramatykaParser#expr3}.
-	 * @param ctx the parse tree
-	 */
-	void exitNegative(gramatykaParser.NegativeContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code single4}
-	 * labeled alternative in {@link gramatykaParser#expr4}.
+	 * labeled alternative in {@link gramatykaParser#expr3}.
 	 * @param ctx the parse tree
 	 */
 	void enterSingle4(gramatykaParser.Single4Context ctx);
 	/**
 	 * Exit a parse tree produced by the {@code single4}
-	 * labeled alternative in {@link gramatykaParser#expr4}.
+	 * labeled alternative in {@link gramatykaParser#expr3}.
 	 * @param ctx the parse tree
 	 */
 	void exitSingle4(gramatykaParser.Single4Context ctx);
 	/**
-	 * Enter a parse tree produced by the {@code par}
-	 * labeled alternative in {@link gramatykaParser#expr4}.
+	 * Enter a parse tree produced by the {@code expr_par}
+	 * labeled alternative in {@link gramatykaParser#expr3}.
 	 * @param ctx the parse tree
 	 */
-	void enterPar(gramatykaParser.ParContext ctx);
+	void enterExpr_par(gramatykaParser.Expr_parContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code par}
-	 * labeled alternative in {@link gramatykaParser#expr4}.
+	 * Exit a parse tree produced by the {@code expr_par}
+	 * labeled alternative in {@link gramatykaParser#expr3}.
 	 * @param ctx the parse tree
 	 */
-	void exitPar(gramatykaParser.ParContext ctx);
+	void exitExpr_par(gramatykaParser.Expr_parContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#matrix}.
+	 * @param ctx the parse tree
+	 */
+	void enterMatrix(gramatykaParser.MatrixContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#matrix}.
+	 * @param ctx the parse tree
+	 */
+	void exitMatrix(gramatykaParser.MatrixContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code val_arr}
+	 * labeled alternative in {@link gramatykaParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void enterVal_arr(gramatykaParser.Val_arrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code val_arr}
+	 * labeled alternative in {@link gramatykaParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void exitVal_arr(gramatykaParser.Val_arrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code logic_arr}
+	 * labeled alternative in {@link gramatykaParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogic_arr(gramatykaParser.Logic_arrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code logic_arr}
+	 * labeled alternative in {@link gramatykaParser#array}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogic_arr(gramatykaParser.Logic_arrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link gramatykaParser#value}.
 	 * @param ctx the parse tree
@@ -194,4 +216,14 @@ public interface gramatykaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValue(gramatykaParser.ValueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#logic_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogic_value(gramatykaParser.Logic_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#logic_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogic_value(gramatykaParser.Logic_valueContext ctx);
 }
