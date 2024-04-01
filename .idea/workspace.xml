@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="31f0d276-6579-4147-b33b-5086d0636689" name="Changes" comment="" />
+    <list default="true" id="31f0d276-6579-4147-b33b-5086d0636689" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatyka.g4" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatyka.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatyka.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testujemy.x" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.x" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +38,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "karim",
@@ -40,6 +53,25 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="kompilatorek" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -57,6 +89,7 @@
       <updated>1711116519703</updated>
       <workItem from="1711116520890" duration="2641000" />
       <workItem from="1711365606904" duration="647000" />
+      <workItem from="1711825932916" duration="15231000" />
     </task>
     <servers />
   </component>
