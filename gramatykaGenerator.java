@@ -7,31 +7,69 @@ class gramatykaGenerator {
    static int str = 1;
 
    static void printf_value(String id, String format) {
-      main_text += "%" + reg + " = load " + format + ", " + format + "* %" + id + "\n";
-      reg++;
       String llvm_format;
+      String type;
       switch (format) {
-        case "int" -> llvm_format = "i32";
-        case "real" -> llvm_format = "float";
-        case "string" -> llvm_format = "i8*";
-        case "boolean" -> llvm_format = "i1";
-        default -> {
+         case "int":
+         case "boolean":
+            llvm_format = "i32";
+            type = "strpi";
+            break;
+         case "float":
+            llvm_format = "float";
+            type = "strpf";
+            break;
+         case "double":
+            llvm_format = "double";
+            type = "strpd";
+            break;
+         case "string":
+            llvm_format = "i8*";
+            type = "strps";
+            break;
+         default:
             System.err.println("Error: Invalid format: " + format);
             return;
-        }
       }
-      main_text += "%" + reg + " = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strpi, i32 0, i32 0), " + llvm_format + " %"+(reg-1)+")\n";
+      main_text += "%" + reg + " = load " + llvm_format + ", " + llvm_format + "* %" + id + "\n";
+      reg++;
+      main_text += "%" + reg + " = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @"+type+", i32 0, i32 0), " + llvm_format + " %"+(reg-1)+")\n";
       reg++;
    }
-
-   static void scanf(String id, int l){
-      allocate_string("str"+str, l);
-      main_text += "%"+id+" = alloca i8*\n";
-      main_text += "%"+reg+" = getelementptr inbounds ["+(l+1)+" x i8], ["+(l+1)+" x i8]* %str"+str+", i64 0, i64 0\n";
-      reg++;
-      main_text += "store i8* %"+(reg-1)+", i8** %"+id+"\n"; 
-      str++;
-      main_text += "%"+reg+" = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @strs, i32 0, i32 0), i8* %"+(reg-1)+")\n";
+   static void scanf(String id, String format){
+      String type;
+      String llvm_format;
+      switch (format) {
+         case "int":
+            declare_int(id);
+            type = "strsi";
+            llvm_format = "i32";
+            break;
+         case "float":
+            declare_float(id);
+            type = "strsf";
+            llvm_format = "float";
+            break;
+         case "double":
+            declare_double(id);
+            type = "strsd";
+            llvm_format = "double";
+            break;
+         case "boolean":
+            declare_boolean(id);
+            type = "strsi";
+            llvm_format = "i32";
+            break;
+         case "string":
+            declare_string(id);
+            type = "strss";
+            llvm_format = "i8*";
+            break;
+         default:
+            System.err.println("Error: Invalid format: " + format);
+            return;
+      }
+      main_text += "%"+reg+" = call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @"+type+", i32 0, i32 0), "+llvm_format+"* %"+id+")\n";
       reg++;
    }
 
@@ -42,7 +80,9 @@ class gramatykaGenerator {
 
    static void declare_string(String id){ main_text += "%"+id+" = alloca i8*\n"; }
 
-   static void declare_real(String id){ main_text += "%"+id+" = alloca float\n"; }
+   static void declare_float(String id){ main_text += "%"+id+" = alloca float\n"; }
+
+   static void declare_double(String id){ main_text += "%"+id+" = alloca double\n"; }
 
    static void declare_boolean(String id){ main_text += "%"+id+" = alloca i1\n"; }
 
@@ -54,8 +94,12 @@ class gramatykaGenerator {
       main_text += "store i32 "+value+", i32* %"+id+"\n";
    }
 
-   static void assign_real(String id, String value){
+   static void assign_float(String id, String value){
       main_text += "store float "+value+", float* %"+id+"\n";
+   }
+
+   static void assign_double(String id, String value){
+      main_text += "store double "+value+", double* %"+id+"\n";
    }
 
    static void assign_boolean(String id, String value) {
@@ -68,17 +112,17 @@ class gramatykaGenerator {
    }
 
    static void constant_string(String content){
-      int l = content.length()+1;     
+      int l = content.length()+1;
       header_text += "@str"+str+" = constant ["+l+" x i8] c\""+content+"\\00\"\n";
       String n = "str"+str;
       gramatykaGenerator.allocate_string(n, (l-1));
       main_text += "%"+reg+" = bitcast ["+l+" x i8]* %"+n+" to i8*\n";
-      main_text += "call void @gramatyka.memcpy.p0i8.p0i8.i64(i8* align 1 %"+reg+", i8* align 1 getelementptr inbounds (["+l+" x i8], ["+l+" x i8]* @"+n+", i32 0, i32 0), i64 "+l+", i1 false)\n";
+      main_text += "call void @llvm.memcpy.p0i8.p0i8.i64(i8* align 1 %"+reg+", i8* align 1 getelementptr inbounds (["+l+" x i8], ["+l+" x i8]* @"+n+", i32 0, i32 0), i64 "+l+", i1 false)\n";
       reg++;
       main_text += "%ptr"+n+" = alloca i8*\n";
       main_text += "%"+reg+" = getelementptr inbounds ["+l+" x i8], ["+l+" x i8]* %"+n+", i64 0, i64 0\n";
       reg++;
-      main_text += "store i8* %"+(reg-1)+", i8** %ptr"+n+"\n";    
+      main_text += "store i8* %"+(reg-1)+", i8** %ptr"+n+"\n";
       str++;
    }
 
@@ -87,8 +131,13 @@ class gramatykaGenerator {
       reg++;
    }
 
-   static void load_real(String id){
+   static void load_float(String id){
       main_text += "%"+reg+" = load float, float* %"+id+"\n";
+      reg++;
+   }
+
+   static void load_double(String id){
+      main_text += "%"+reg+" = load double, double* %"+id+"\n";
       reg++;
    }
 
@@ -107,8 +156,13 @@ class gramatykaGenerator {
       reg++;
    }
 
-   static void add_real(String id1, String id2){
+   static void add_float(String id1, String id2){
       main_text += "%"+reg+" = fadd float "+id1+", "+id2+"\n";
+      reg++;
+   }
+
+   static void add_double(String id1, String id2){
+      main_text += "%"+reg+" = fadd double "+id1+", "+id2+"\n";
       reg++;
    }
 
@@ -117,8 +171,13 @@ class gramatykaGenerator {
       reg++;
    }
 
-   static void minus_real(String id1, String id2) {
+   static void minus_float(String id1, String id2) {
       main_text += "%" + reg + " = fsub float " + id1 + ", " + id2 + "\n";
+      reg++;
+   }
+
+   static void minus_double(String id1, String id2) {
+      main_text += "%" + reg + " = fsub double " + id1 + ", " + id2 + "\n";
       reg++;
    }
 
@@ -127,8 +186,13 @@ class gramatykaGenerator {
       reg++;
    }
 
-   static void mult_real(String val1, String val2){
+   static void mult_float(String val1, String val2){
       main_text += "%"+reg+" = fmul float "+val1+", "+val2+"\n";
+      reg++;
+   }
+
+   static void mult_double(String val1, String val2){
+      main_text += "%"+reg+" = fmul double "+val1+", "+val2+"\n";
       reg++;
    }
 
@@ -137,8 +201,13 @@ class gramatykaGenerator {
       reg++;
    }
 
-   static void divide_real(String val1, String val2) {
+   static void divide_float(String val1, String val2) {
       main_text += "%" + reg + " = fdiv float " + val1 + ", " + val2 + "\n";
+      reg++;
+   }
+
+   static void divide_double(String val1, String val2) {
+      main_text += "%" + reg + " = fdiv double " + val1 + ", " + val2 + "\n";
       reg++;
    }
 
@@ -156,20 +225,129 @@ class gramatykaGenerator {
       reg++;
       str++;      
    }
-   
+
+   static void and(String val1, String val2) { // val1->x val2->0
+      main_text += "entry:\n";
+      main_text += "br i1 " + val2 + ", label %then, label %endif\n";
+      main_text += "then:\n";
+      main_text += "%" + reg + " = icmp eq i1 " + val1 + ", 1\n";
+      reg++;
+      main_text += "endif:\n";
+      main_text += "%" + reg + " = icmp eq i1 0, 0\n";
+      main_text += "%" + reg + " = alloca i1";
+      reg++;
+      main_text += "store i32 42, i32* %" + (reg - 1);
+   }
+
+//static void and(String val1, String val2) {
+//   main_text += "br i1 " + val2 + ", label %then, label %endif\n";
+//
+//   main_text += "then:\n";
+//   main_text += "%" + reg + " = icmp eq i1 " + val1 + ", 1\n";
+//   int thenReg = reg; // Save the register number for the icmp in 'then'
+//   reg++; // Increment the register number
+//
+//   main_text += "br label %merge\n"; // Unconditionally branch to the merge block
+//
+//   main_text += "endif:\n";
+//   main_text += "%" + reg + " = icmp eq i1 0, 0\n"; // Compare 0 with 0 for always true
+//   int endifReg = reg; // Save the register number for the icmp in 'endif'
+//   reg++; // Increment the register number
+//
+//   main_text += "merge:\n";
+//   main_text += "%" + reg + " = phi i1 [ %" + thenReg + ", %then ], [ %" + endifReg + ", %endif ]\n";
+//   reg++; // Increment the register number
+//}
+
+
+
+   static void or(String val1, String val2) {
+      main_text += "%" + reg + " = call i32 @strcmp(i8* " + val2 + ", i8* \"true\")\n";
+      reg++;
+      main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
+      reg++;
+      main_text += "br i1 %" + (reg-1) + ", label %endif, label %then\n";
+
+      then:
+         main_text += "%" + reg + " = call i32 @strcmp(i8* " + val1 + ", i8* \"false\")\n";
+         reg++;
+         main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
+         reg++;
+         main_text += "store i32 1, i32* %" + (reg-4) + "\n";
+
+      endif:
+         main_text += "%" + reg + " = phi i32 [1, %" + (reg-3) + "], [%...%, %" + (reg-2) + "]\n";
+         reg++;
+         main_text += "%" + (reg+2) + " = select i8* i8* \"true\", i8* \"false\", i32 %" + (reg-1) + "\n";
+         reg++;
+   }
+
+   static void xor(String val1, String val2) {
+      main_text += "%" + reg + " = call i32 @strcmp(i8* " + val1 + ", i8* \"true\")\n";
+      reg++;
+      main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
+      reg++;
+      main_text += "store i32 %" + (reg-1) + ", i32* %" + reg + "\n";
+
+      main_text += "%" + (reg+1) + " = call i32 @strcmp(i8* " + val2 + ", i8* \"true\")\n";
+      reg++;
+      main_text += "%" + (reg+1) + " = icmp ne i32 %" + reg + ", 0\n";
+      reg++;
+      main_text += "store i32 %" + reg + ", i32* %" + (reg+1) + "\n";
+
+      main_text += "%" + (reg+2) + " = xor i32 %" + reg + ", %" + (reg+1) + "\n";
+      reg++;
+
+      main_text += "%" + (reg+2) + " = select i8* i8* \"true\", i8* \"false\", i32 %" + (reg-1) + "\n";
+      reg++;
+   }
+
+   static void neg(String val) {
+      main_text += "%" + reg + " = call i32 @strcmp(i8* " + val + ", i8* \"true\")\n";
+      reg++;
+      main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
+      reg++;
+      main_text += "%" + reg + " = xor i32 %" + (reg-1) + ", 1\n";
+      reg++;
+      main_text += "%" + (reg+2) + " = select i8* i8* \"true\", i8* \"false\", i32 %" + (reg-1) + "\n";
+      reg++;
+   }
+
+
+
+
+//   static String generate(){
+//      String text = "";
+//      text += "declare i32 @printf(i8*, ...)\n";
+//      text += "declare i32 @sprintf(i8*, i8*, ...)\n";
+//      text += "declare i8* @strcpy(i8*, i8*)\n";
+//      text += "declare i32 @atoi(i8*)\n";
+//      text += "declare i32 @__isoc99_scanf(i8*, ...)\n";
+//      text += "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noalias nocapture readonly, i64, i1 immarg)\n";
+//      text += "@strps = constant [4 x i8] c\"%s\\0A\\00\"\n";
+//      text += "@strpi = constant [4 x i8] c\"%d\\0A\\00\"\n";
+//      text += "@strs = constant [5 x i8] c\"%10s\\00\"\n";
+//      text += "@strspi = constant [3 x i8] c\"%d\\00\"\n";
+//      text += header_text;
+//      text += "define i32 @main() nounwind{\n";
+//      text += main_text;
+//      text += "ret i32 0 }\n";
+//      return text;
+//   }
    static String generate(){
       String text = "";
       text += "declare i32 @printf(i8*, ...)\n";
-      text += "declare i32 @sprintf(i8*, i8*, ...)\n";
-      text += "declare i8* @strcpy(i8*, i8*)\n";
       text += "declare i8* @strcat(i8*, i8*)\n";
-      text += "declare i32 @atoi(i8*)\n";
-      text += "declare i32 @__isoc99_scanf(i8*, ...)\n";
-      text += "declare void @gramatyka.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noalias nocapture readonly, i64, i1 immarg)\n";
+      text += "declare i8* @strcpy(i8*, i8*)\n";
+      text += "declare i32 @scanf(i8*, ...)\n";
+      text += "declare void @llvm.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noalias nocapture readonly, i64, i1 immarg)\n";
       text += "@strps = constant [4 x i8] c\"%s\\0A\\00\"\n";
       text += "@strpi = constant [4 x i8] c\"%d\\0A\\00\"\n";
-      text += "@strs = constant [5 x i8] c\"%10s\\00\"\n";
-      text += "@strspi = constant [3 x i8] c\"%d\\00\"\n";
+      text += "@strpf = constant [4 x i8] c\"%f\\0A\\00\"\n";
+      text += "@strpd = constant [5 x i8] c\"%lf\\0A\\00\"\n";
+      text += "@strsi = constant [3 x i8] c\"%d\\00\"\n";
+      text += "@strsf = constant [3 x i8] c\"%f\\00\"\n";
+      text += "@strsd = constant [4 x i8] c\"%lf\\00\"\n";
       text += header_text;
       text += "define i32 @main() nounwind{\n";
       text += main_text;

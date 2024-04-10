@@ -2,8 +2,8 @@ grammar gramatyka;
 
 prog: ( stat? NEWLINE )*
 ;
-// x = 1
-stat:	INPUT ID		                            #input
+
+stat:	INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE) ID		                            #input
 	| OUTPUT ID   		                            #output
  	| ID '=' (array|expr1|expr_logic|matrix)		#assign
 ;
@@ -29,15 +29,14 @@ expr3:   value              #single4
 matrix: '[' ( array ( ',' array )* )? ']'
 ;
 
-array: '[' ( value ( ',' value )* )? ']'                #val_arr
-    | '[' ( logic_value ( ',' logic_value )* )? ']'     #logic_arr
+array: '[' ( INT ( ',' INT )* )? ']'
 ;
 
 value: ID
        | INT
        | STRING
-       | '(float)' REAL
-       | '(double)' REAL
+       | FLOAT REAL
+       | DOUBLE REAL
 ;
 
 logic_value: ID
@@ -60,6 +59,18 @@ XOR: 'xor'
 ;
 
 NEG: 'neg'
+;
+
+FLOAT: '(float)'
+;
+
+DOUBLE: '(double)'
+;
+
+INTTYPE: '(int)'
+;
+
+BOOLTYPE: '(bool)'
 ;
 
 BOOLEAN: ('true' | 'false')
