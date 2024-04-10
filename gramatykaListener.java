@@ -183,29 +183,15 @@ public interface gramatykaListener extends ParseTreeListener {
 	 */
 	void exitMatrix(gramatykaParser.MatrixContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code val_arr}
-	 * labeled alternative in {@link gramatykaParser#array}.
+	 * Enter a parse tree produced by {@link gramatykaParser#array}.
 	 * @param ctx the parse tree
 	 */
-	void enterVal_arr(gramatykaParser.Val_arrContext ctx);
+	void enterArray(gramatykaParser.ArrayContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code val_arr}
-	 * labeled alternative in {@link gramatykaParser#array}.
+	 * Exit a parse tree produced by {@link gramatykaParser#array}.
 	 * @param ctx the parse tree
 	 */
-	void exitVal_arr(gramatykaParser.Val_arrContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code logic_arr}
-	 * labeled alternative in {@link gramatykaParser#array}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogic_arr(gramatykaParser.Logic_arrContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code logic_arr}
-	 * labeled alternative in {@link gramatykaParser#array}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogic_arr(gramatykaParser.Logic_arrContext ctx);
+	void exitArray(gramatykaParser.ArrayContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link gramatykaParser#value}.
 	 * @param ctx the parse tree

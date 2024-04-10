@@ -1,7 +1,7 @@
 
 import java.util.HashMap;
 import java.util.Stack;
-enum VarType{ INT, REAL, STRING, BOOLEAN, UNKNOWN }
+enum VarType{ INT, FLOAT, DOUBLE, STRING, BOOLEAN, UNKNOWN }
 
 class Value{
     public String name;
@@ -32,8 +32,11 @@ public class gramatykaActions extends gramatykaBaseListener {
             if( v.type == VarType.STRING ){
                 gramatykaGenerator.declare_string(ID);
             }
-            if( v.type == VarType.REAL ){
-                gramatykaGenerator.declare_real(ID);
+            if( v.type == VarType.FLOAT ){
+                gramatykaGenerator.declare_float(ID);
+            }
+            if( v.type == VarType.DOUBLE ){
+                gramatykaGenerator.declare_double(ID);
             }
             if( v.type == VarType.BOOLEAN ){
                 gramatykaGenerator.declare_boolean(ID);
@@ -45,8 +48,11 @@ public class gramatykaActions extends gramatykaBaseListener {
        if( v.type == VarType.STRING ){
          gramatykaGenerator.assign_string(ID);
        }
-       if (v.type == VarType.REAL){
-           gramatykaGenerator.assign_real(ID, v.name);
+       if (v.type == VarType.FLOAT){
+           gramatykaGenerator.assign_float(ID, v.name);
+       }
+       if (v.type == VarType.DOUBLE){
+           gramatykaGenerator.assign_double(ID, v.name);
        }
        if( v.type == VarType.BOOLEAN){
            gramatykaGenerator.assign_boolean(ID, v.name);
@@ -70,10 +76,13 @@ public class gramatykaActions extends gramatykaBaseListener {
             if( v.type == VarType.STRING ){
                gramatykaGenerator.load_string( ID );
             }
-            if( v.type == VarType.REAL ){
-                gramatykaGenerator.load_real( ID );
+            if( v.type == VarType.FLOAT ){
+                gramatykaGenerator.load_float( ID );
             }
-            stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, v.length)); 
+            if( v.type == VarType.DOUBLE ){
+                gramatykaGenerator.load_double( ID );
+            }
+            stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, v.length));
          } else {
             error(ctx.getStart().getLine(), "unknown variable "+ID);         
          }
@@ -88,8 +97,11 @@ public class gramatykaActions extends gramatykaBaseListener {
          String n = "ptrstr"+(gramatykaGenerator.str-1);
          stack.push( new Value(n, VarType.STRING, content.length()) );
        }
-       if( ctx.REAL() != null){
-           stack.push( new Value(ctx.REAL().getText(), VarType.REAL, 0) );
+       if( ctx.FLOAT() != null){
+           stack.push( new Value(ctx.REAL().getText(), VarType.FLOAT, 0) );
+       }
+       if( ctx.FLOAT() != null){
+           stack.push( new Value(ctx.REAL().getText(), VarType.DOUBLE, 0) );
        }
     }
 
@@ -102,7 +114,7 @@ public class gramatykaActions extends gramatykaBaseListener {
                 if( v.type == VarType.BOOLEAN ){
                     gramatykaGenerator.load_boolean( ID );
                 }
-                stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, v.length));
+                stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, 0));
             } else {
                 error(ctx.getStart().getLine(), "unknown variable "+ID);
             }
@@ -137,14 +149,24 @@ public class gramatykaActions extends gramatykaBaseListener {
                 Value v = new Value("%"+(gramatykaGenerator.reg-3), VarType.STRING, v1.length);
                 stack.push(v);
             }
-            else if( v1.type==VarType.REAL ){
+            else if( v1.type==VarType.FLOAT ){
                 if (ctx.ADD() != null) {
-                    gramatykaGenerator.add_real(v1.name, v2.name );
+                    gramatykaGenerator.add_float(v1.name, v2.name );
                 }
                 else if (ctx.MINUS() != null) {
-                    gramatykaGenerator.minus_real(v1.name, v2.name);
+                    gramatykaGenerator.minus_float(v1.name, v2.name);
                 }
-                Value v = new Value("%"+(gramatykaGenerator.reg-1), VarType.REAL, 0);
+                Value v = new Value("%"+(gramatykaGenerator.reg-1), VarType.FLOAT, 0);
+                stack.push(v);
+            }
+            else if( v1.type==VarType.DOUBLE ){
+                if (ctx.ADD() != null) {
+                    gramatykaGenerator.add_double(v1.name, v2.name );
+                }
+                else if (ctx.MINUS() != null) {
+                    gramatykaGenerator.minus_double(v1.name, v2.name);
+                }
+                Value v = new Value("%"+(gramatykaGenerator.reg-1), VarType.DOUBLE, 0);
                 stack.push(v);
             }
         }
@@ -167,14 +189,23 @@ public class gramatykaActions extends gramatykaBaseListener {
                 }
                 stack.push( new Value("%"+(gramatykaGenerator.reg-1), VarType.INT, 0 ));
             }
-            if( v1.type == VarType.REAL ){
+            if( v1.type == VarType.FLOAT ){
                 if (ctx.MULTIPLY() != null) {
-                    gramatykaGenerator.mult_real(v1.name, v2.name);
+                    gramatykaGenerator.mult_float(v1.name, v2.name);
                 }
                 else if (ctx.DIVIDE() != null) {
-                    gramatykaGenerator.divide_real(v1.name, v2.name);
+                    gramatykaGenerator.divide_float(v1.name, v2.name);
                 }
-                stack.push( new Value("%"+(gramatykaGenerator.reg-1), VarType.REAL, 0 ));
+                stack.push( new Value("%"+(gramatykaGenerator.reg-1), VarType.FLOAT, 0 ));
+            }
+            if( v1.type == VarType.DOUBLE ){
+                if (ctx.MULTIPLY() != null) {
+                    gramatykaGenerator.mult_double(v1.name, v2.name);
+                }
+                else if (ctx.DIVIDE() != null) {
+                    gramatykaGenerator.divide_double(v1.name, v2.name);
+                }
+                stack.push( new Value("%"+(gramatykaGenerator.reg-1), VarType.DOUBLE, 0 ));
             }
         } else {
             error(ctx.getStart().getLine(), "type mismatch");
@@ -193,8 +224,11 @@ public class gramatykaActions extends gramatykaBaseListener {
               if( v.type == VarType.STRING ){
                 gramatykaGenerator.printf_value( ID, "string" );
               }
-              if( v.type == VarType.REAL ){
-                  gramatykaGenerator.printf_value( ID, "real" );
+              if( v.type == VarType.FLOAT ){
+                  gramatykaGenerator.printf_value( ID, "float" );
+              }
+              if( v.type == VarType.DOUBLE ){
+                  gramatykaGenerator.printf_value( ID, "double" );
               }
               if( v.type == VarType.BOOLEAN ){
                   gramatykaGenerator.printf_value( ID, "boolean" );
@@ -203,14 +237,56 @@ public class gramatykaActions extends gramatykaBaseListener {
        } else {
           error(ctx.getStart().getLine(), "unknown variable");
        }       
-    } 
+    }
+
+    @Override
+    public void exitLogic_opp(gramatykaParser.Logic_oppContext ctx) {
+        Value v2 = stack.pop();
+        Value v1 = stack.pop();
+
+        if (ctx.AND() != null) {
+            gramatykaGenerator.and(v1.name, v2.name );
+        }
+        else if (ctx.OR() != null) {
+            gramatykaGenerator.or(v1.name, v2.name);
+        }
+        else if (ctx.XOR() != null) {
+            gramatykaGenerator.xor(v1.name, v2.name);
+        }
+        Value v = new Value("%"+(gramatykaGenerator.reg-1), VarType.BOOLEAN, 0);
+        stack.push(v);
+    }
+
+    @Override
+    public void exitNeg(gramatykaParser.NegContext ctx) {
+        Value v1 = stack.pop();
+        gramatykaGenerator.neg(v1.name);
+        Value v = new Value("%"+(gramatykaGenerator.reg-1), VarType.BOOLEAN, 0);
+        stack.push(v);
+    }
 
     @Override
     public void exitInput(gramatykaParser.InputContext ctx) {
        String ID = ctx.ID().getText();
-       Value v = new Value(ID, VarType.STRING, BUFFER_SIZE-1); 
-       variables.put(ID, v);
-       gramatykaGenerator.scanf(ID, BUFFER_SIZE);
+       if (ctx.INTTYPE() != null) {
+           Value v = new Value(ID, VarType.INT, 0);
+           variables.put(ID, v);
+           gramatykaGenerator.scanf(ID, "int");
+       } else if (ctx.FLOAT() != null) {
+           Value v = new Value(ID, VarType.FLOAT, 0);
+           variables.put(ID, v);
+           gramatykaGenerator.scanf(ID, "float");
+       } else if (ctx.DOUBLE() != null) {
+           Value v = new Value(ID, VarType.DOUBLE, 0);
+           variables.put(ID, v);
+           gramatykaGenerator.scanf(ID, "double");
+       } else if (ctx.BOOLTYPE() != null) {
+           Value v = new Value(ID, VarType.BOOLEAN, 0);
+           variables.put(ID, v);
+           gramatykaGenerator.scanf(ID, "boolean");
+       } else {
+           error(ctx.getStart().getLine(), "wrong type for input");
+       }
     }
 
     void error(int line, String msg){

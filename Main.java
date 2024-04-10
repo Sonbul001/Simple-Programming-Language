@@ -1,23 +1,19 @@
-// Intro to ANTLR+LLVM
-// sawickib, 2014-2023
 
-import org.antlr.v4.runtime.ANTLRFileStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-//        ANTLRFileStream input = new ANTLRFileStream(args[0]);
-        String input = "x = 1+2 \n out x \n";
+        ANTLRFileStream input = new ANTLRFileStream(args[0]);
+//        String input = "in (int) x \n out x \n";
 
-        gramatykaLexer lexer = new gramatykaLexer(CharStreams.fromString(input));
+        gramatykaLexer lexer = new gramatykaLexer(input);
+//        gramatykaLexer lexer = new gramatykaLexer(CharStreams.fromString(input));
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         gramatykaParser parser = new gramatykaParser(tokens);
 
-        ParseTree tree = parser.prog(); 
+        ParseTree tree = parser.prog();
 
         System.out.println(tree.toStringTree(parser));
 

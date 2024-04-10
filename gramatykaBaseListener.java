@@ -196,25 +196,13 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVal_arr(gramatykaParser.Val_arrContext ctx) { }
+	@Override public void enterArray(gramatykaParser.ArrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVal_arr(gramatykaParser.Val_arrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLogic_arr(gramatykaParser.Logic_arrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLogic_arr(gramatykaParser.Logic_arrContext ctx) { }
+	@Override public void exitArray(gramatykaParser.ArrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
