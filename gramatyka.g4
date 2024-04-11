@@ -3,7 +3,7 @@ grammar gramatyka;
 prog: ( stat? NEWLINE )*
 ;
 
-stat:	INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE) ID		                            #input
+stat:	INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE | STRINGTYPE) ID		                            #input
 	| OUTPUT ID   		                            #output
  	| ID '=' (array|expr1|expr_logic|matrix)		#assign
 ;
@@ -65,6 +65,9 @@ FLOAT: '(float)'
 ;
 
 DOUBLE: '(double)'
+;
+
+STRINGTYPE: '(string)'
 ;
 
 INTTYPE: '(int)'
