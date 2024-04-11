@@ -7,7 +7,15 @@
     <list default="true" id="31f0d276-6579-4147-b33b-5086d0636689" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatyka.g4" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatyka.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatyka.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testujemy.ll" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.ll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testujemy.pl" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.pl" afterDir="false" />
     </list>
@@ -22,6 +30,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="NamedScopeManager">
+    <scope name="remove class" pattern="!file:*.class" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -30,27 +41,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;karim&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Politechnika/Kompilatory/kompilatorek/testujemy.pl&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "karim",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Politechnika/Kompilatory/kompilatorek/testujemy.pl",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.scopes",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
@@ -99,7 +110,7 @@
       <workItem from="1712238540943" duration="890000" />
       <workItem from="1712310926097" duration="5169000" />
       <workItem from="1712774534088" duration="16050000" />
-      <workItem from="1712835703729" duration="6454000" />
+      <workItem from="1712835703729" duration="13915000" />
     </task>
     <servers />
   </component>

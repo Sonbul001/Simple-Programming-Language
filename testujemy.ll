@@ -10,16 +10,13 @@ declare void @llvm.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noa
 @strsi = constant [3 x i8] c"%d\00"
 @strsf = constant [3 x i8] c"%f\00"
 @strsd = constant [4 x i8] c"%lf\00"
+@strss = constant [5 x i8] c"%10s\00"
 define i32 @main() nounwind{
-%x = alloca i1
-store i1 false, i1* %x
-%y = alloca i1
-store i1 true, i1* %y
-%1 = load i1, i1* %x
-%2 = load i1, i1* %y
-%3 = xor i1 %1,%2
-%z = alloca i1
-store i1 %3, i1* %z
-%4 = load i1, i1* %z
-%5 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strpi, i32 0, i32 0), i1 %4)
+%str_buffer = alloca [50 x i8]
+%format_str = alloca [5 x i8]
+store [3 x i8] c"%s\00", [3 x i8]* %format_str
+%ptr = getelementptr inbounds [50 x i8], [50 x i8]* %str_buffer, i32 0, i32 0
+%1 = call i32 (i8*, ...) @scanf(i8* %format_str, i8* %str_buffer)
+%src = bitcast [50 x i8]* %str_buffer to i8*
+%2 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strps, i32 0, i32 0), i8* %src)
 ret i32 0 }

@@ -17,9 +17,9 @@ public class gramatykaParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, INPUT=7, OUTPUT=8, AND=9, 
-		OR=10, XOR=11, NEG=12, FLOAT=13, DOUBLE=14, INTTYPE=15, BOOLTYPE=16, BOOLEAN=17, 
-		ID=18, REAL=19, INT=20, ADD=21, MULTIPLY=22, MINUS=23, DIVIDE=24, STRING=25, 
-		NEWLINE=26, WS=27;
+		OR=10, XOR=11, NEG=12, FLOAT=13, DOUBLE=14, STRINGTYPE=15, INTTYPE=16, 
+		BOOLTYPE=17, BOOLEAN=18, ID=19, REAL=20, INT=21, ADD=22, MULTIPLY=23, 
+		MINUS=24, DIVIDE=25, STRING=26, NEWLINE=27, WS=28;
 	public static final int
 		RULE_prog = 0, RULE_stat = 1, RULE_expr_logic = 2, RULE_expr1 = 3, RULE_expr2 = 4, 
 		RULE_expr3 = 5, RULE_matrix = 6, RULE_array = 7, RULE_value = 8, RULE_logic_value = 9;
@@ -34,17 +34,17 @@ public class gramatykaParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'='", "'('", "')'", "'['", "','", "']'", "'in'", "'out'", "'and'", 
-			"'or'", "'xor'", "'neg'", "'(float)'", "'(double)'", "'(int)'", "'(bool)'", 
-			null, null, null, null, "'+'", "'*'", "'-'", "'/'"
+			"'or'", "'xor'", "'neg'", "'(float)'", "'(double)'", "'(string)'", "'(int)'", 
+			"'(bool)'", null, null, null, null, "'+'", "'*'", "'-'", "'/'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, "INPUT", "OUTPUT", "AND", "OR", 
-			"XOR", "NEG", "FLOAT", "DOUBLE", "INTTYPE", "BOOLTYPE", "BOOLEAN", "ID", 
-			"REAL", "INT", "ADD", "MULTIPLY", "MINUS", "DIVIDE", "STRING", "NEWLINE", 
-			"WS"
+			"XOR", "NEG", "FLOAT", "DOUBLE", "STRINGTYPE", "INTTYPE", "BOOLTYPE", 
+			"BOOLEAN", "ID", "REAL", "INT", "ADD", "MULTIPLY", "MINUS", "DIVIDE", 
+			"STRING", "NEWLINE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -134,13 +134,13 @@ public class gramatykaParser extends Parser {
 			setState(26);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 67371392L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 134742400L) != 0)) {
 				{
 				{
 				setState(21);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 262528L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 524672L) != 0)) {
 					{
 					setState(20);
 					stat();
@@ -202,6 +202,7 @@ public class gramatykaParser extends Parser {
 		public TerminalNode FLOAT() { return getToken(gramatykaParser.FLOAT, 0); }
 		public TerminalNode DOUBLE() { return getToken(gramatykaParser.DOUBLE, 0); }
 		public TerminalNode BOOLTYPE() { return getToken(gramatykaParser.BOOLTYPE, 0); }
+		public TerminalNode STRINGTYPE() { return getToken(gramatykaParser.STRINGTYPE, 0); }
 		public InputContext(StatContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -254,7 +255,7 @@ public class gramatykaParser extends Parser {
 				match(INPUT);
 				setState(30);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 122880L) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 253952L) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1084,7 +1085,7 @@ public class gramatykaParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u001by\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u001cy\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0001\u0000\u0003\u0000\u0016\b\u0000\u0001"+
@@ -1104,21 +1105,21 @@ public class gramatykaParser extends Parser {
 		"\u0003\u0007j\b\u0007\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001\b"+
 		"\u0001\b\u0001\b\u0001\b\u0001\b\u0003\bu\b\b\u0001\t\u0001\t\u0001\t"+
 		"\u0000\u0001\u0004\n\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0000"+
-		"\u0005\u0001\u0000\r\u0010\u0001\u0000\t\u000b\u0002\u0000\u0015\u0015"+
-		"\u0017\u0017\u0002\u0000\u0016\u0016\u0018\u0018\u0001\u0000\u0011\u0012"+
+		"\u0005\u0001\u0000\r\u0011\u0001\u0000\t\u000b\u0002\u0000\u0016\u0016"+
+		"\u0018\u0018\u0002\u0000\u0017\u0017\u0019\u0019\u0001\u0000\u0012\u0013"+
 		"\u0083\u0000\u001a\u0001\u0000\u0000\u0000\u0002*\u0001\u0000\u0000\u0000"+
 		"\u00044\u0001\u0000\u0000\u0000\u0006C\u0001\u0000\u0000\u0000\bJ\u0001"+
 		"\u0000\u0000\u0000\nQ\u0001\u0000\u0000\u0000\fS\u0001\u0000\u0000\u0000"+
 		"\u000e`\u0001\u0000\u0000\u0000\u0010t\u0001\u0000\u0000\u0000\u0012v"+
 		"\u0001\u0000\u0000\u0000\u0014\u0016\u0003\u0002\u0001\u0000\u0015\u0014"+
 		"\u0001\u0000\u0000\u0000\u0015\u0016\u0001\u0000\u0000\u0000\u0016\u0017"+
-		"\u0001\u0000\u0000\u0000\u0017\u0019\u0005\u001a\u0000\u0000\u0018\u0015"+
+		"\u0001\u0000\u0000\u0000\u0017\u0019\u0005\u001b\u0000\u0000\u0018\u0015"+
 		"\u0001\u0000\u0000\u0000\u0019\u001c\u0001\u0000\u0000\u0000\u001a\u0018"+
 		"\u0001\u0000\u0000\u0000\u001a\u001b\u0001\u0000\u0000\u0000\u001b\u0001"+
 		"\u0001\u0000\u0000\u0000\u001c\u001a\u0001\u0000\u0000\u0000\u001d\u001e"+
 		"\u0005\u0007\u0000\u0000\u001e\u001f\u0007\u0000\u0000\u0000\u001f+\u0005"+
-		"\u0012\u0000\u0000 !\u0005\b\u0000\u0000!+\u0005\u0012\u0000\u0000\"#"+
-		"\u0005\u0012\u0000\u0000#(\u0005\u0001\u0000\u0000$)\u0003\u000e\u0007"+
+		"\u0013\u0000\u0000 !\u0005\b\u0000\u0000!+\u0005\u0013\u0000\u0000\"#"+
+		"\u0005\u0013\u0000\u0000#(\u0005\u0001\u0000\u0000$)\u0003\u000e\u0007"+
 		"\u0000%)\u0003\u0006\u0003\u0000&)\u0003\u0004\u0002\u0000\')\u0003\f"+
 		"\u0006\u0000($\u0001\u0000\u0000\u0000(%\u0001\u0000\u0000\u0000(&\u0001"+
 		"\u0000\u0000\u0000(\'\u0001\u0000\u0000\u0000)+\u0001\u0000\u0000\u0000"+
@@ -1145,14 +1146,14 @@ public class gramatykaParser extends Parser {
 		"\u0000\u0000\u0000YZ\u0001\u0000\u0000\u0000Z]\u0001\u0000\u0000\u0000"+
 		"[Y\u0001\u0000\u0000\u0000\\T\u0001\u0000\u0000\u0000\\]\u0001\u0000\u0000"+
 		"\u0000]^\u0001\u0000\u0000\u0000^_\u0005\u0006\u0000\u0000_\r\u0001\u0000"+
-		"\u0000\u0000`i\u0005\u0004\u0000\u0000af\u0005\u0014\u0000\u0000bc\u0005"+
-		"\u0005\u0000\u0000ce\u0005\u0014\u0000\u0000db\u0001\u0000\u0000\u0000"+
+		"\u0000\u0000`i\u0005\u0004\u0000\u0000af\u0005\u0015\u0000\u0000bc\u0005"+
+		"\u0005\u0000\u0000ce\u0005\u0015\u0000\u0000db\u0001\u0000\u0000\u0000"+
 		"eh\u0001\u0000\u0000\u0000fd\u0001\u0000\u0000\u0000fg\u0001\u0000\u0000"+
 		"\u0000gj\u0001\u0000\u0000\u0000hf\u0001\u0000\u0000\u0000ia\u0001\u0000"+
 		"\u0000\u0000ij\u0001\u0000\u0000\u0000jk\u0001\u0000\u0000\u0000kl\u0005"+
-		"\u0006\u0000\u0000l\u000f\u0001\u0000\u0000\u0000mu\u0005\u0012\u0000"+
-		"\u0000nu\u0005\u0014\u0000\u0000ou\u0005\u0019\u0000\u0000pq\u0005\r\u0000"+
-		"\u0000qu\u0005\u0013\u0000\u0000rs\u0005\u000e\u0000\u0000su\u0005\u0013"+
+		"\u0006\u0000\u0000l\u000f\u0001\u0000\u0000\u0000mu\u0005\u0013\u0000"+
+		"\u0000nu\u0005\u0015\u0000\u0000ou\u0005\u001a\u0000\u0000pq\u0005\r\u0000"+
+		"\u0000qu\u0005\u0014\u0000\u0000rs\u0005\u000e\u0000\u0000su\u0005\u0014"+
 		"\u0000\u0000tm\u0001\u0000\u0000\u0000tn\u0001\u0000\u0000\u0000to\u0001"+
 		"\u0000\u0000\u0000tp\u0001\u0000\u0000\u0000tr\u0001\u0000\u0000\u0000"+
 		"u\u0011\u0001\u0000\u0000\u0000vw\u0007\u0004\u0000\u0000w\u0013\u0001"+

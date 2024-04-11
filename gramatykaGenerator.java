@@ -63,13 +63,24 @@ class gramatykaGenerator {
          case "string":
             declare_string(id);
             type = "strss";
-            llvm_format = "i8*";
+            llvm_format = "i8";
             break;
          default:
             System.err.println("Error: Invalid format: " + format);
             return;
       }
       main_text += "%"+reg+" = call i32 (i8*, ...) @scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @"+type+", i32 0, i32 0), "+llvm_format+"* %"+id+")\n";
+      reg++;
+   }
+
+   static void scanf_string(String id, int l) {
+      allocate_string("str"+str, l);
+      main_text += "%"+id+" = alloca i8*\n";
+      main_text += "%"+reg+" = getelementptr inbounds ["+(l+1)+" x i8], ["+(l+1)+" x i8]* %str"+str+", i64 0, i64 0\n";
+      reg++;
+      main_text += "store i8* %"+(reg-1)+", i8** %"+id+"\n";
+      str++;
+      main_text += "%"+reg+" = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @strs, i32 0, i32 0), i8* %"+(reg-1)+")\n";
       reg++;
    }
 
@@ -263,7 +274,7 @@ class gramatykaGenerator {
    }
 
    static void neg(String val) {
-      main_text += "%" + reg + " = xor i1 %" + val + ", 1\n";
+      main_text += "%" + reg + " = xor i1 " + val + ", 1\n";
       reg++;
    }
 
@@ -302,6 +313,7 @@ class gramatykaGenerator {
       text += "@strsi = constant [3 x i8] c\"%d\\00\"\n";
       text += "@strsf = constant [3 x i8] c\"%f\\00\"\n";
       text += "@strsd = constant [4 x i8] c\"%lf\\00\"\n";
+      text += "@strss = constant [5 x i8] c\"%10s\\00\"\n";
       text += header_text;
       text += "define i32 @main() nounwind{\n";
       text += main_text;

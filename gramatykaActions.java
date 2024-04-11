@@ -100,7 +100,7 @@ public class gramatykaActions extends gramatykaBaseListener {
        if( ctx.FLOAT() != null){
            stack.push( new Value(ctx.REAL().getText(), VarType.FLOAT, 0) );
        }
-       if( ctx.FLOAT() != null){
+       if( ctx.DOUBLE() != null){
            stack.push( new Value(ctx.REAL().getText(), VarType.DOUBLE, 0) );
        }
     }
@@ -284,6 +284,10 @@ public class gramatykaActions extends gramatykaBaseListener {
            Value v = new Value(ID, VarType.BOOLEAN, 0);
            variables.put(ID, v);
            gramatykaGenerator.scanf(ID, "boolean");
+       } else if (ctx.STRINGTYPE() != null) {
+           Value v = new Value(ID, VarType.STRING, BUFFER_SIZE-1);
+           variables.put(ID, v);
+           gramatykaGenerator.scanf_string(ID, BUFFER_SIZE);
        } else {
            error(ctx.getStart().getLine(), "wrong type for input");
        }
