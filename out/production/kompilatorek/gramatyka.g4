@@ -1,11 +1,22 @@
 grammar gramatyka;
 
-prog: ( stat? NEWLINE )*
+prog: block
 ;
 
-stat:	INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE | STRINGTYPE) ID		                            #input
-	| OUTPUT ID   		                            #output
- 	| ID '=' (array|expr1|expr_logic|matrix)		#assign
+block: ( stat? NEWLINE )*
+;
+
+stat:	INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE | STRINGTYPE) ID     #input
+	| OUTPUT ID   		                                                #output
+ 	| ID '=' (array|expr1|expr_logic|matrix)		                    #assign
+ 	| REPEAT repetitions block ENDREPEAT		                        #repeat
+ 	| 'if' condition block 'endif'                                      #if
+;
+
+repetitions: (INT|ID)
+;
+
+condition: ID (BIGGER|SMALLER|EQUAL|NOTEQUAL) ID
 ;
 
 expr_logic: expr_logic (AND | OR | XOR) expr_logic      #logic_opp
@@ -29,7 +40,7 @@ expr3:   value              #single4
 matrix: '[' ( array ( ',' array )* )? ']'
 ;
 
-array: '[' ( INT ( ',' INT )* )? ']'
+array: '['size = INT']' '[' ( INT ( ',' INT )* )? ']'
 ;
 
 value: ID
@@ -41,6 +52,24 @@ value: ID
 
 logic_value: ID
         | BOOLEAN
+;
+
+BIGGER: '>'
+;
+
+SMALLER: '<'
+;
+
+EQUAL: '=='
+;
+
+NOTEQUAL: '!='
+;
+
+REPEAT: 'repeat'
+;
+
+ENDREPEAT: 'endrepeat'
 ;
 
 INPUT:	'in'

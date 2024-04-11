@@ -1,3 +1,4 @@
+import java.util.Stack;
 
 class gramatykaGenerator {
    
@@ -5,6 +6,9 @@ class gramatykaGenerator {
    static String main_text = "";
    static int reg = 1;
    static int str = 1;
+   static int br = 0;
+   static Stack<Integer> brstack = new Stack<Integer>();
+
 
    static void printf_value(String id, String format) {
       String llvm_format;
@@ -60,11 +64,6 @@ class gramatykaGenerator {
             type = "strsi";
             llvm_format = "i32";
             break;
-         case "string":
-            declare_string(id);
-            type = "strss";
-            llvm_format = "i8";
-            break;
          default:
             System.err.println("Error: Invalid format: " + format);
             return;
@@ -84,6 +83,21 @@ class gramatykaGenerator {
       reg++;
    }
 
+   static void declare_array(String id, int size) {
+      main_text += "%" + id + " = alloca [" + size + " x i32]\n";
+   }
+
+   static void assign_array_element(String id, int size, int index, String value) {
+      main_text += "%idx" + reg + " = getelementptr inbounds [" + size + " x i32], [" + size + " x i32]* %" + id + ", i32 0, i32 " + index + "\n";
+      main_text += "store i32 " + value + ", i32* %idx" + reg + "\n";
+      reg++;
+   }
+
+   static void load_array_element(String id, int size, int index) {
+      main_text += "%idx" + reg + " = getelementptr inbounds [" + size + " x i32], [" + size + " x i32]* %" + id + ", i32 0, i32 " + index + "\n";
+      main_text += "%" + reg + " = load i32, i32* %idx" + reg + "\n";
+      reg++;
+   }
 
    static void declare_int(String id){
       main_text += "%"+id+" = alloca i32\n";
@@ -207,17 +221,17 @@ class gramatykaGenerator {
    }
 
    static void divide_int(String val1, String val2) {
-      main_text += "%" + reg + " = sdiv i32 " + val1 + ", " + val2 + "\n";
+      main_text += "%" + reg + " = sdiv i32 " + val2 + ", " + val1 + "\n";
       reg++;
    }
 
    static void divide_float(String val1, String val2) {
-      main_text += "%" + reg + " = fdiv float " + val1 + ", " + val2 + "\n";
+      main_text += "%" + reg + " = fdiv float " + val2 + ", " + val1 + "\n";
       reg++;
    }
 
    static void divide_double(String val1, String val2) {
-      main_text += "%" + reg + " = fdiv double " + val1 + ", " + val2 + "\n";
+      main_text += "%" + reg + " = fdiv double " + val2 + ", " + val1 + "\n";
       reg++;
    }
 
@@ -236,7 +250,7 @@ class gramatykaGenerator {
       str++;      
    }
 
-   static void and(String val1, String val2) { // val1->x val2->0
+   static void and(String val1, String val2) {
       main_text += "br i1 " + val2 + ", label %truecond, label %falsecond\n";
       reg++;
       main_text += "truecond:\n";
@@ -278,8 +292,65 @@ class gramatykaGenerator {
       reg++;
    }
 
+   static void equal(String left, String right) {
+      main_text += "%"+reg+" = icmp eq i32 "+left+", "+right+"\n";
+      reg++;
+   }
 
+   static void notequal(String left, String right) {
+      main_text += "%"+reg+" = icmp ne i32 "+left+", "+right+"\n";
+      reg++;
+   }
 
+   static void bigger(String left, String right) {
+      main_text += "%"+reg+" = icmp sgt i32 "+left+", "+right+"\n";
+      reg++;
+   }
+
+   static void smaller(String left, String right) {
+      main_text += "%"+reg+" = icmp slt i32 "+left+", "+right+"\n";
+      reg++;
+   }
+
+   static void repeatstart(String repetitions){
+      declare_int(Integer.toString(reg));
+      int counter = reg;
+      reg++;
+      assign_int(Integer.toString(counter), "0");
+      br++;
+      main_text += "br label %cond"+br+"\n";
+      main_text += "cond"+br+":\n";
+
+      load_int(Integer.toString(counter));
+      add_int("%"+(reg-1), "1");
+      assign_int(Integer.toString(counter), "%"+(reg-1));
+
+      main_text += "%"+reg+" = icmp slt i32 %"+(reg-2)+", "+repetitions+"\n";
+      reg++;
+
+      main_text += "br i1 %"+(reg-1)+", label %true"+br+", label %false"+br+"\n";
+      main_text += "true"+br+":\n";
+      brstack.push(br);
+   }
+
+   static void repeatend(){
+      int b = brstack.pop();
+      main_text += "br label %cond"+b+"\n";
+      main_text += "false"+b+":\n";
+   }
+
+   static void ifCond(Integer x) {
+      main_text += "br i1 %" + (reg-1) + ", label %start_block"+ x +", label %end_block" + x +"\n";
+   }
+
+   static void blockStart(Integer x) {
+      main_text += "start_block" + x + ":\n";
+   }
+
+   static void blockEnd(Integer x) {
+      main_text += "br label %end_block" + x + "\n";
+      main_text += "end_block" + x + ":\n";
+   }
 
 //   static String generate(){
 //      String text = "";

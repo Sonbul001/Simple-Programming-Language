@@ -12,11 +12,27 @@ declare void @llvm.memcpy.p0i8.p0i8.i64(i8* noalias nocapture writeonly, i8* noa
 @strsd = constant [4 x i8] c"%lf\00"
 @strss = constant [5 x i8] c"%10s\00"
 define i32 @main() nounwind{
-%str_buffer = alloca [50 x i8]
-%format_str = alloca [5 x i8]
-store [3 x i8] c"%s\00", [3 x i8]* %format_str
-%ptr = getelementptr inbounds [50 x i8], [50 x i8]* %str_buffer, i32 0, i32 0
-%1 = call i32 (i8*, ...) @scanf(i8* %format_str, i8* %str_buffer)
-%src = bitcast [50 x i8]* %str_buffer to i8*
-%2 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strps, i32 0, i32 0), i8* %src)
+start_block1:
+%x = alloca i32
+store i32 6, i32* %x
+%1 = load i32, i32* %x
+%2 = alloca i32
+store i32 0, i32* %2
+br label %cond1
+cond1:
+%3 = load i32, i32* %2
+%4 = add i32 %3, 1
+store i32 %4, i32* %2
+%5 = icmp slt i32 %3, 6
+br i1 %5, label %true1, label %false1
+true1:
+%6 = load i32, i32* %x
+%7 = add i32 %6, 1
+store i32 %7, i32* %x
+%8 = load i1, i1* %x
+%9 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @strpi, i32 0, i32 0), i1 %8)
+br label %cond1
+false1:
+br label %end_block1
+end_block1:
 ret i32 0 }
