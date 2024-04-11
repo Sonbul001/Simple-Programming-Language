@@ -1,7 +1,7 @@
 
 import java.util.HashMap;
 import java.util.Stack;
-enum VarType{ INT, FLOAT, DOUBLE, STRING, BOOLEAN, UNKNOWN }
+enum VarType{ INT, FLOAT, DOUBLE, STRING, BOOLEAN, ARRAY, UNKNOWN }
 
 class Value{
     public String name;
@@ -17,6 +17,7 @@ public class gramatykaActions extends gramatykaBaseListener {
 
     HashMap<String, Value> variables = new HashMap<String, Value>();
     Stack<Value> stack = new Stack<Value>();
+    Stack<Integer> blockStack = new Stack<Integer>();
     
     static int BUFFER_SIZE = 16;
 
@@ -41,6 +42,9 @@ public class gramatykaActions extends gramatykaBaseListener {
             if( v.type == VarType.BOOLEAN ){
                 gramatykaGenerator.declare_boolean(ID);
             }
+            if( v.type == VarType.ARRAY){
+                gramatykaGenerator.declare_array(ID, v.length);
+            }
        }   
        if( v.type == VarType.INT ){
          gramatykaGenerator.assign_int(ID, v.name);
@@ -57,6 +61,8 @@ public class gramatykaActions extends gramatykaBaseListener {
        if( v.type == VarType.BOOLEAN){
            gramatykaGenerator.assign_boolean(ID, v.name);
        }
+//       if( v.type == VarType.ARRAY){
+//       }
     }
 
     @Override 
@@ -291,6 +297,113 @@ public class gramatykaActions extends gramatykaBaseListener {
        } else {
            error(ctx.getStart().getLine(), "wrong type for input");
        }
+    }
+
+    @Override
+    public void exitArray(gramatykaParser.ArrayContext ctx) {
+        stack.push( new Value(ctx.INT(0).getText(), VarType.ARRAY, Integer.parseInt(ctx.size.getText())) );
+    }
+
+    @Override
+    public void exitCondition(gramatykaParser.ConditionContext ctx) {
+        String ID = "";
+        if( ctx.ID(0) != null ) {
+            ID = ctx.ID(0).getText();
+            if( variables.containsKey(ID) ) {
+                Value v = variables.get(ID);
+                if (v.type == VarType.INT) {
+                    gramatykaGenerator.load_int(ID);
+                }
+                stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
+            }
+            else {
+                error(ctx.getStart().getLine(), "unknown variable ");
+            }
+        }
+        if ( ctx.ID(1) != null ) {
+            ID = ctx.ID(1).getText();
+            if( variables.containsKey(ID) ) {
+                Value v = variables.get(ID);
+                if (v.type == VarType.INT) {
+                    gramatykaGenerator.load_int(ID);
+                }
+                stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
+            }
+            else {
+                error(ctx.getStart().getLine(), "unknown variable "+ID);
+            }
+        } else {
+            error(ctx.getStart().getLine(), "condition can have only ID");
+        }
+
+        Value vright = stack.pop();
+        Value vleft = stack.pop();
+
+        if (ctx.BIGGER() != null){
+            gramatykaGenerator.bigger(vleft.name, vright.name);
+        } else if (ctx.SMALLER() != null){
+            gramatykaGenerator.smaller(vleft.name, vright.name);
+        } else if (ctx.EQUAL() != null){
+            gramatykaGenerator.equal(vleft.name, vright.name);
+        } else if (ctx.NOTEQUAL() != null){
+            gramatykaGenerator.notequal(vleft.name, vright.name);
+        } else {
+            error(ctx.getStart().getLine(), "You can only use >, <, ==, != ");
+        }
+        Value v = new Value("%"+(gramatykaGenerator.reg-1), VarType.INT, 0);
+        stack.push(v);
+        gramatykaGenerator.ifCond(ctx.getStart().getLine());
+    }
+
+//    @Override
+//    public void exitBlock(LangXParser.BlockContext ctx) {
+//        if( ctx.getParent() instanceof LangXParser.RepeatContext ){
+//            LLVMGenerator.repeatend();
+//        }
+//    }
+
+//    @Override
+//    public void enterIf(gramatykaParser.IfContext ctx) {
+//        gramatykaGenerator.ifCond(ctx.getStart().getLine());
+//    }
+
+    @Override
+    public void exitRepetitions(gramatykaParser.RepetitionsContext ctx) {
+        if (ctx.ID() != null) {
+            String ID = ctx.ID().getText();
+            if( variables.containsKey(ID) ) {
+                Value v = variables.get(ID);
+                if (v.type == VarType.INT) {
+                    gramatykaGenerator.load_int(ID);
+                }
+                gramatykaGenerator.repeatstart(v.name);
+            }
+            else {
+                error(ctx.getStart().getLine(), "unknown variable ");
+            }
+        }
+        if (ctx.INT() != null) {
+            gramatykaGenerator.repeatstart(ctx.getText());
+        }
+
+    }
+
+    @Override
+    public void enterBlock(gramatykaParser.BlockContext ctx) {
+        if (!(ctx.getParent() instanceof gramatykaParser.RepeatContext)) {
+            blockStack.push(ctx.getStart().getLine());
+            gramatykaGenerator.blockStart(ctx.getStart().getLine());
+        }
+    }
+
+    @Override
+    public void exitBlock(gramatykaParser.BlockContext ctx) {
+        if( ctx.getParent() instanceof gramatykaParser.RepeatContext ){
+            gramatykaGenerator.repeatend();
+        } else {
+            Integer x = blockStack.pop();
+            gramatykaGenerator.blockEnd(x);
+        }
     }
 
     void error(int line, String msg){

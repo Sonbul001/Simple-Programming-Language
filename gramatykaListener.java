@@ -17,6 +17,16 @@ public interface gramatykaListener extends ParseTreeListener {
 	 */
 	void exitProg(gramatykaParser.ProgContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(gramatykaParser.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(gramatykaParser.BlockContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code input}
 	 * labeled alternative in {@link gramatykaParser#stat}.
 	 * @param ctx the parse tree
@@ -52,6 +62,50 @@ public interface gramatykaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssign(gramatykaParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code repeat}
+	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterRepeat(gramatykaParser.RepeatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code repeat}
+	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitRepeat(gramatykaParser.RepeatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code if}
+	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf(gramatykaParser.IfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code if}
+	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf(gramatykaParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#repetitions}.
+	 * @param ctx the parse tree
+	 */
+	void enterRepetitions(gramatykaParser.RepetitionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#repetitions}.
+	 * @param ctx the parse tree
+	 */
+	void exitRepetitions(gramatykaParser.RepetitionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(gramatykaParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(gramatykaParser.ConditionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code logic_val}
 	 * labeled alternative in {@link gramatykaParser#expr_logic}.

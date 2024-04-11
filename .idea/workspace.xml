@@ -11,10 +11,12 @@
       <change beforePath="$PROJECT_DIR$/gramatyka.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatyka.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaBaseListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gramatykaListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testujemy.ll" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.ll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testujemy.pl" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.pl" afterDir="false" />
@@ -110,7 +112,7 @@
       <workItem from="1712238540943" duration="890000" />
       <workItem from="1712310926097" duration="5169000" />
       <workItem from="1712774534088" duration="16050000" />
-      <workItem from="1712835703729" duration="13915000" />
+      <workItem from="1712835703729" duration="29243000" />
     </task>
     <servers />
   </component>
