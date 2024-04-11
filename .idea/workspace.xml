@@ -6,65 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="31f0d276-6579-4147-b33b-5086d0636689" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatyka.g4" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatyka.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatyka.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatyka.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/a.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gramatykaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/.idea/kompilatorek.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/Value.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/VarType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaActions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaBaseListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaGenerator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ArrayContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$AssignContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr1Context.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr2Context.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr3Context.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr_logicContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr_parContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$InputContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_arrContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_oppContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_parContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_valContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_valueContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$MatrixContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$MultidivideContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$NegContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$OutputContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$PlusminusContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ProgContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single1Context.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single2Context.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single4Context.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$StatContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Val_arrContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ValueContext.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/testujemy.x" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.pl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testujemy.x" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testujemy.ll" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testujemy.pl" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.pl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +98,8 @@
       <workItem from="1712230377798" duration="7468000" />
       <workItem from="1712238540943" duration="890000" />
       <workItem from="1712310926097" duration="5169000" />
-      <workItem from="1712774534088" duration="15713000" />
+      <workItem from="1712774534088" duration="16050000" />
+      <workItem from="1712835703729" duration="6454000" />
     </task>
     <servers />
   </component>
