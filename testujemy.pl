@@ -1,4 +1,4 @@
-x = true
-y = false
-z = x and y
+x = false
+y = true
+z = x xor y
 out z

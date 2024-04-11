@@ -12,7 +12,7 @@ class gramatykaGenerator {
       switch (format) {
          case "int":
          case "boolean":
-            llvm_format = "i32";
+            llvm_format = "i1";
             type = "strpi";
             break;
          case "float":
@@ -103,8 +103,7 @@ class gramatykaGenerator {
    }
 
    static void assign_boolean(String id, String value) {
-      int llvmBooleanValue = value.equals("true") ? 1 : 0;
-      main_text += "store i1 " + llvmBooleanValue + ", i1* %" + id + "\n";
+      main_text += "store i1 " + value + ", i1* %" + id + "\n";
    }
 
    static void assign_string(String id){  
@@ -227,89 +226,44 @@ class gramatykaGenerator {
    }
 
    static void and(String val1, String val2) { // val1->x val2->0
-      main_text += "entry:\n";
-      main_text += "br i1 " + val2 + ", label %then, label %endif\n";
-      main_text += "then:\n";
+      main_text += "br i1 " + val2 + ", label %truecond, label %falsecond\n";
+      reg++;
+      main_text += "truecond:\n";
       main_text += "%" + reg + " = icmp eq i1 " + val1 + ", 1\n";
       reg++;
-      main_text += "endif:\n";
-      main_text += "%" + reg + " = icmp eq i1 0, 0\n";
-      main_text += "%" + reg + " = alloca i1";
+      main_text += "br label %exitcond\n";
+      main_text += "falsecond:\n";
+      main_text += "%" + reg + " = icmp eq i1 1, 0\n";
       reg++;
-      main_text += "store i32 42, i32* %" + (reg - 1);
+      main_text += "br label %exitcond\n";
+      main_text += "exitcond:\n";
+      main_text += "%" + reg + " = phi i1 [ %"+ (reg-2) +", %truecond ], [ %"+ (reg-1) +", %falsecond ]\n";
+      reg++;
    }
 
-//static void and(String val1, String val2) {
-//   main_text += "br i1 " + val2 + ", label %then, label %endif\n";
-//
-//   main_text += "then:\n";
-//   main_text += "%" + reg + " = icmp eq i1 " + val1 + ", 1\n";
-//   int thenReg = reg; // Save the register number for the icmp in 'then'
-//   reg++; // Increment the register number
-//
-//   main_text += "br label %merge\n"; // Unconditionally branch to the merge block
-//
-//   main_text += "endif:\n";
-//   main_text += "%" + reg + " = icmp eq i1 0, 0\n"; // Compare 0 with 0 for always true
-//   int endifReg = reg; // Save the register number for the icmp in 'endif'
-//   reg++; // Increment the register number
-//
-//   main_text += "merge:\n";
-//   main_text += "%" + reg + " = phi i1 [ %" + thenReg + ", %then ], [ %" + endifReg + ", %endif ]\n";
-//   reg++; // Increment the register number
-//}
-
-
-
-   static void or(String val1, String val2) {
-      main_text += "%" + reg + " = call i32 @strcmp(i8* " + val2 + ", i8* \"true\")\n";
+   static void or(String val1, String val2) { // val1->1 val2->0
+      main_text += "br i1 " + val2 + ", label %truecond, label %falsecond\n";
       reg++;
-      main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
+      main_text += "truecond:\n";
+      main_text += "%" + reg + " = icmp eq i1 1, 1\n";
       reg++;
-      main_text += "br i1 %" + (reg-1) + ", label %endif, label %then\n";
-
-      then:
-         main_text += "%" + reg + " = call i32 @strcmp(i8* " + val1 + ", i8* \"false\")\n";
-         reg++;
-         main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
-         reg++;
-         main_text += "store i32 1, i32* %" + (reg-4) + "\n";
-
-      endif:
-         main_text += "%" + reg + " = phi i32 [1, %" + (reg-3) + "], [%...%, %" + (reg-2) + "]\n";
-         reg++;
-         main_text += "%" + (reg+2) + " = select i8* i8* \"true\", i8* \"false\", i32 %" + (reg-1) + "\n";
-         reg++;
+      main_text += "br label %exitcond\n";
+      main_text += "falsecond:\n";
+      main_text += "%" + reg + " = icmp eq i1 " + val1 + ", 1\n";
+      reg++;
+      main_text += "br label %exitcond\n";
+      main_text += "exitcond:\n";
+      main_text += "%" + reg + " = phi i1 [ %"+ (reg-2) +", %truecond ], [ %"+ (reg-1) +", %falsecond ]\n";
+      reg++;
    }
 
    static void xor(String val1, String val2) {
-      main_text += "%" + reg + " = call i32 @strcmp(i8* " + val1 + ", i8* \"true\")\n";
-      reg++;
-      main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
-      reg++;
-      main_text += "store i32 %" + (reg-1) + ", i32* %" + reg + "\n";
-
-      main_text += "%" + (reg+1) + " = call i32 @strcmp(i8* " + val2 + ", i8* \"true\")\n";
-      reg++;
-      main_text += "%" + (reg+1) + " = icmp ne i32 %" + reg + ", 0\n";
-      reg++;
-      main_text += "store i32 %" + reg + ", i32* %" + (reg+1) + "\n";
-
-      main_text += "%" + (reg+2) + " = xor i32 %" + reg + ", %" + (reg+1) + "\n";
-      reg++;
-
-      main_text += "%" + (reg+2) + " = select i8* i8* \"true\", i8* \"false\", i32 %" + (reg-1) + "\n";
+      main_text += "%" + reg + " = xor i1 " + val1 + "," + val2 + "\n";
       reg++;
    }
 
    static void neg(String val) {
-      main_text += "%" + reg + " = call i32 @strcmp(i8* " + val + ", i8* \"true\")\n";
-      reg++;
-      main_text += "%" + reg + " = icmp ne i32 %" + (reg-1) + ", 0\n";
-      reg++;
-      main_text += "%" + reg + " = xor i32 %" + (reg-1) + ", 1\n";
-      reg++;
-      main_text += "%" + (reg+2) + " = select i8* i8* \"true\", i8* \"false\", i32 %" + (reg-1) + "\n";
+      main_text += "%" + reg + " = xor i1 %" + val + ", 1\n";
       reg++;
    }
 
