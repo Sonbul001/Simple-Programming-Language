@@ -3,14 +3,21 @@ grammar gramatyka;
 prog: block
 ;
 
-block: ( stat? NEWLINE )*
+block: ( (stat|function)? NEWLINE )*
 ;
 
-stat:	INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE | STRINGTYPE) ID     #input
+function: FUNCTION fparam fblock ENDFUNCTION
+;
+
+fblock: ( stat? NEWLINE )*
+;
+
+stat:	GLOBAL? INPUT (INTTYPE | FLOAT | DOUBLE | BOOLTYPE | STRINGTYPE) ID     #input
 	| OUTPUT ID   		                                                #output
- 	| ID '=' (array|expr1|expr_logic|matrix)		                    #assign
+ 	| GLOBAL? ID '=' (array|expr1|expr_logic|matrix)		            #assign
  	| REPEAT repetitions block ENDREPEAT		                        #repeat
  	| 'if' condition block 'endif'                                      #if
+ 	| ID                                                                #call
 ;
 
 repetitions: (INT|ID)
@@ -52,6 +59,18 @@ value: ID
 
 logic_value: ID
         | BOOLEAN
+;
+
+fparam: ID
+;
+
+GLOBAL: 'global'
+;
+
+FUNCTION: 'function'
+;
+
+ENDFUNCTION:	'endfunction'
 ;
 
 BIGGER: '>'

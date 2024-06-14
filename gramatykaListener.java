@@ -1,4 +1,4 @@
-// Generated from gramatyka.g4 by ANTLR 4.13.1
+// Generated from ./gramatyka.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -26,6 +26,26 @@ public interface gramatykaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBlock(gramatykaParser.BlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(gramatykaParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(gramatykaParser.FunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#fblock}.
+	 * @param ctx the parse tree
+	 */
+	void enterFblock(gramatykaParser.FblockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#fblock}.
+	 * @param ctx the parse tree
+	 */
+	void exitFblock(gramatykaParser.FblockContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code input}
 	 * labeled alternative in {@link gramatykaParser#stat}.
@@ -86,6 +106,18 @@ public interface gramatykaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIf(gramatykaParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code call}
+	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterCall(gramatykaParser.CallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code call}
+	 * labeled alternative in {@link gramatykaParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitCall(gramatykaParser.CallContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link gramatykaParser#repetitions}.
 	 * @param ctx the parse tree
@@ -266,4 +298,14 @@ public interface gramatykaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLogic_value(gramatykaParser.Logic_valueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link gramatykaParser#fparam}.
+	 * @param ctx the parse tree
+	 */
+	void enterFparam(gramatykaParser.FparamContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link gramatykaParser#fparam}.
+	 * @param ctx the parse tree
+	 */
+	void exitFparam(gramatykaParser.FparamContext ctx);
 }

@@ -1,4 +1,4 @@
-// Generated from gramatyka.g4 by ANTLR 4.13.1
+// Generated from ./gramatyka.g4 by ANTLR 4.13.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -35,6 +35,30 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBlock(gramatykaParser.BlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction(gramatykaParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction(gramatykaParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFblock(gramatykaParser.FblockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFblock(gramatykaParser.FblockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -95,6 +119,18 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIf(gramatykaParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCall(gramatykaParser.CallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCall(gramatykaParser.CallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -287,6 +323,18 @@ public class gramatykaBaseListener implements gramatykaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLogic_value(gramatykaParser.Logic_valueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFparam(gramatykaParser.FparamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFparam(gramatykaParser.FparamContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,12 +1,14 @@
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Stack;
-enum VarType{ INT, FLOAT, DOUBLE, STRING, BOOLEAN, ARRAY, UNKNOWN }
+enum VarType{ INT, FLOAT, DOUBLE, STRING, BOOLEAN, ARRAY, FUNCTION, UNKNOWN }
 
 class Value{
     public String name;
     public VarType type;
     public int length;
+
     public Value( String name, VarType type, int length ){
         this.name = name;
         this.type = type;
@@ -15,80 +17,200 @@ class Value{
 }
 public class gramatykaActions extends gramatykaBaseListener {
 
-    HashMap<String, Value> variables = new HashMap<String, Value>();
+    HashMap<String, Value> localVariables = new HashMap<String, Value>();
+    HashMap<String, Value> globalVariables = new HashMap<String, Value>();
+
+    HashSet<String> globalnames = new HashSet<String>();
+    HashSet<String> localnames = new HashSet<String>();
+
+    HashSet<String> functions = new HashSet<String>();
     Stack<Value> stack = new Stack<Value>();
     Stack<Integer> blockStack = new Stack<Integer>();
+    String function;
+    boolean global;
     
     static int BUFFER_SIZE = 16;
+
+    public String set_variable(String ID){
+        String id;
+        if( global ){
+            if( ! globalnames.contains(ID) ) {
+                globalnames.add(ID);
+                gramatykaGenerator.declare_int(ID, true);
+            }
+            id = ID;
+        } else {
+            if( ! localnames.contains(ID) ) {
+                localnames.add(ID);
+                gramatykaGenerator.declare_int(ID, false);
+            }
+            id = ID;
+        }
+        return id;
+    }
+    @Override
+    public void exitFparam(gramatykaParser.FparamContext ctx) {
+        String ID = ctx.ID().getText();
+        functions.add(ID);
+        function = ID;
+        gramatykaGenerator.functionstart(ID);
+    }
+
+    @Override
+    public void exitFblock(gramatykaParser.FblockContext ctx) {
+        if( ! localnames.contains(function) ){
+            gramatykaGenerator.assign_int(set_variable(function), "0", global);
+        }
+        gramatykaGenerator.load_int( function , global);
+        gramatykaGenerator.functionend();
+        localnames = new HashSet<String>();
+        localVariables.clear();
+        global = true;
+    }
+
+    @Override
+    public void enterFblock(gramatykaParser.FblockContext ctx) {
+        global = false;
+    }
+
+    @Override
+    public void exitCall(gramatykaParser.CallContext ctx) {
+        gramatykaGenerator.call(ctx.ID().getText());
+    }
 
     @Override
     public void exitAssign(gramatykaParser.AssignContext ctx) { 
        String ID = ctx.ID().getText();
        Value v = stack.pop();
-       if( !variables.containsKey(ID) ) {
-            variables.put(ID, v);
+       if(!globalVariables.containsKey(ID) && ctx.GLOBAL() != null ) {
+           globalVariables.put(ID, v);
             if( v.type == VarType.INT ){
-                gramatykaGenerator.declare_int(ID);
+                gramatykaGenerator.declare_int(ID, true);
             }
             if( v.type == VarType.STRING ){
-                gramatykaGenerator.declare_string(ID);
+                gramatykaGenerator.declare_string(ID, true);
             }
             if( v.type == VarType.FLOAT ){
-                gramatykaGenerator.declare_float(ID);
+                gramatykaGenerator.declare_float(ID, true);
             }
             if( v.type == VarType.DOUBLE ){
-                gramatykaGenerator.declare_double(ID);
+                gramatykaGenerator.declare_double(ID, true);
             }
             if( v.type == VarType.BOOLEAN ){
-                gramatykaGenerator.declare_boolean(ID);
+                gramatykaGenerator.declare_boolean(ID, true);
             }
             if( v.type == VarType.ARRAY){
                 gramatykaGenerator.declare_array(ID, v.length);
             }
-       }   
-       if( v.type == VarType.INT ){
-         gramatykaGenerator.assign_int(ID, v.name);
-       } 
-       if( v.type == VarType.STRING ){
-         gramatykaGenerator.assign_string(ID);
        }
-       if (v.type == VarType.FLOAT){
-           gramatykaGenerator.assign_float(ID, v.name);
-       }
-       if (v.type == VarType.DOUBLE){
-           gramatykaGenerator.assign_double(ID, v.name);
-       }
-       if( v.type == VarType.BOOLEAN){
-           gramatykaGenerator.assign_boolean(ID, v.name);
-       }
+        else if(!localVariables.containsKey(ID) && ctx.GLOBAL() == null ) {
+            localVariables.put(ID, v);
+            if( v.type == VarType.INT ){
+                gramatykaGenerator.declare_int(ID, false);
+            }
+            if( v.type == VarType.STRING ){
+                gramatykaGenerator.declare_string(ID, false);
+            }
+            if( v.type == VarType.FLOAT ){
+                gramatykaGenerator.declare_float(ID, false);
+            }
+            if( v.type == VarType.DOUBLE ){
+                gramatykaGenerator.declare_double(ID, false);
+            }
+            if( v.type == VarType.BOOLEAN ){
+                gramatykaGenerator.declare_boolean(ID, false);
+            }
+            if( v.type == VarType.ARRAY){
+                gramatykaGenerator.declare_array(ID, v.length);
+            }
+        }
+        if (ctx.GLOBAL() != null) {
+            if( v.type == VarType.INT){
+                gramatykaGenerator.assign_int(ID, v.name, true);
+            }
+            if( v.type == VarType.STRING ){
+                gramatykaGenerator.assign_string(ID, true);
+            }
+            if (v.type == VarType.FLOAT){
+                gramatykaGenerator.assign_float(ID, v.name);
+            }
+            if (v.type == VarType.DOUBLE){
+                gramatykaGenerator.assign_double(ID, v.name, true);
+            }
+            if( v.type == VarType.BOOLEAN){
+                gramatykaGenerator.assign_boolean(ID, v.name, true);
+            }
+        } else if (ctx.GLOBAL() == null) {
+            if( v.type == VarType.INT){
+                gramatykaGenerator.assign_int(ID, v.name, false);
+            }
+            if( v.type == VarType.STRING ){
+                gramatykaGenerator.assign_string(ID, false);
+            }
+            if (v.type == VarType.FLOAT){
+                gramatykaGenerator.assign_float(ID, v.name);
+            }
+            if (v.type == VarType.DOUBLE){
+                gramatykaGenerator.assign_double(ID, v.name, false);
+            }
+            if( v.type == VarType.BOOLEAN){
+                gramatykaGenerator.assign_boolean(ID, v.name, false);
+            }
+        }
 //       if( v.type == VarType.ARRAY){
 //       }
     }
 
-    @Override 
-    public void exitProg(gramatykaParser.ProgContext ctx) { 
-       System.out.println( gramatykaGenerator.generate() );
+    @Override
+    public void enterAssign(gramatykaParser.AssignContext ctx) {
+        if (!global) {
+            localVariables.clear();
+        }
+    }
+
+    @Override
+    public void exitProg(gramatykaParser.ProgContext ctx) {
+        gramatykaGenerator.close_main();
+        System.out.println( gramatykaGenerator.generate() );
     }
 
     @Override 
     public void exitValue(gramatykaParser.ValueContext ctx) { 
        if( ctx.ID() != null ){
-         String ID = ctx.ID().getText();     
-         if( variables.containsKey(ID) ) {
-            Value v = variables.get( ID );
-            if( v.type == VarType.INT ){
-               gramatykaGenerator.load_int( ID );
-            }
-            if( v.type == VarType.STRING ){
-               gramatykaGenerator.load_string( ID );
-            }
-            if( v.type == VarType.FLOAT ){
-                gramatykaGenerator.load_float( ID );
-            }
-            if( v.type == VarType.DOUBLE ){
-                gramatykaGenerator.load_double( ID );
-            }
-            stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, v.length));
+         String ID = ctx.ID().getText();
+         if (globalVariables.containsKey(ID) || localVariables.containsKey(ID)) {
+             if (globalVariables.containsKey(ID)) {
+                 Value v = globalVariables.get( ID );;
+                 if( v.type == VarType.INT ){
+                     gramatykaGenerator.load_int( ID, true);
+                 }
+                 if( v.type == VarType.STRING ){
+                     gramatykaGenerator.load_string( ID, true );
+                 }
+                 if( v.type == VarType.FLOAT ){
+                     gramatykaGenerator.load_float( ID );
+                 }
+                 if( v.type == VarType.DOUBLE ){
+                     gramatykaGenerator.load_double( ID, true );
+                 }
+                 stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, v.length));
+             }
+             else if (localVariables.containsKey(ID)) {
+                 Value v = localVariables.get( ID );;
+                 if( v.type == VarType.INT ){
+                     gramatykaGenerator.load_int( ID, false);
+                 }
+                 if( v.type == VarType.STRING ){
+                     gramatykaGenerator.load_string( ID, false );
+                 }
+                 if( v.type == VarType.FLOAT ){
+                     gramatykaGenerator.load_float( ID );
+                 }
+                 if( v.type == VarType.DOUBLE ){
+                     gramatykaGenerator.load_double( ID, false );
+                 }
+                 stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, v.length));
+             }
          } else {
             error(ctx.getStart().getLine(), "unknown variable "+ID);         
          }
@@ -115,12 +237,22 @@ public class gramatykaActions extends gramatykaBaseListener {
     public void exitLogic_value(gramatykaParser.Logic_valueContext ctx) {
         if( ctx.ID() != null ){
             String ID = ctx.ID().getText();
-            if( variables.containsKey(ID) ) {
-                Value v = variables.get( ID );
-                if( v.type == VarType.BOOLEAN ){
-                    gramatykaGenerator.load_boolean( ID );
+            if(globalVariables.containsKey(ID) || localVariables.containsKey(ID) ) {
+                Value v = null;
+                if (localVariables.containsKey(ID)) {
+                    v = localVariables.get( ID );
+                    if( v.type == VarType.BOOLEAN ){
+                        gramatykaGenerator.load_boolean( ID, false );
+                    }
+                    stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, 0));
                 }
-                stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, 0));
+                else if (globalVariables.containsKey(ID)) {
+                    v = globalVariables.get( ID );
+                    if( v.type == VarType.BOOLEAN ){
+                        gramatykaGenerator.load_boolean( ID, true );
+                    }
+                    stack.push( new Value("%"+(gramatykaGenerator.reg-1), v.type, 0));
+                }
             } else {
                 error(ctx.getStart().getLine(), "unknown variable "+ID);
             }
@@ -221,25 +353,50 @@ public class gramatykaActions extends gramatykaBaseListener {
     @Override
     public void exitOutput(gramatykaParser.OutputContext ctx) {
        String ID = ctx.ID().getText();
-       if( variables.containsKey(ID) ) {
-          Value v = variables.get( ID );
-          if( v.type != null ) {
-              if( v.type == VarType.INT ){
-                gramatykaGenerator.printf_value( ID,"int" );
-              }
-              if( v.type == VarType.STRING ){
-                gramatykaGenerator.printf_value( ID, "string" );
-              }
-              if( v.type == VarType.FLOAT ){
-                  gramatykaGenerator.printf_value( ID, "float" );
-              }
-              if( v.type == VarType.DOUBLE ){
-                  gramatykaGenerator.printf_value( ID, "double" );
-              }
-              if( v.type == VarType.BOOLEAN ){
-                  gramatykaGenerator.printf_value( ID, "boolean" );
-              }
-          }  
+        if(globalVariables.containsKey(ID) || localVariables.containsKey(ID) ) {
+            Value v = null;
+            if (localVariables.containsKey(ID)) {
+                v = localVariables.get( ID );
+                if( v.type != null ) {
+                    if (v.type == VarType.INT) {
+
+                        gramatykaGenerator.printf_value(ID, "int", false);
+                    }
+                    if (v.type == VarType.STRING) {
+                        gramatykaGenerator.printf_value(ID, "string", false);
+                    }
+                    if (v.type == VarType.FLOAT) {
+                        gramatykaGenerator.printf_value(ID, "float", false);
+                    }
+                    if (v.type == VarType.DOUBLE) {
+                        gramatykaGenerator.printf_value(ID, "double", false);
+                    }
+                    if (v.type == VarType.BOOLEAN) {
+                        gramatykaGenerator.printf_value(ID, "boolean", false);
+                    }
+                }
+            }
+            else if (globalVariables.containsKey(ID)) {
+                v = globalVariables.get( ID );
+                if( v.type != null ) {
+                    if (v.type == VarType.INT) {
+
+                        gramatykaGenerator.printf_value(ID, "int", true);
+                    }
+                    if (v.type == VarType.STRING) {
+                        gramatykaGenerator.printf_value(ID, "string", true);
+                    }
+                    if (v.type == VarType.FLOAT) {
+                        gramatykaGenerator.printf_value(ID, "float", true);
+                    }
+                    if (v.type == VarType.DOUBLE) {
+                        gramatykaGenerator.printf_value(ID, "double", true);
+                    }
+                    if (v.type == VarType.BOOLEAN) {
+                        gramatykaGenerator.printf_value(ID, "boolean", true);
+                    }
+                }
+            }
        } else {
           error(ctx.getStart().getLine(), "unknown variable");
        }       
@@ -276,24 +433,49 @@ public class gramatykaActions extends gramatykaBaseListener {
        String ID = ctx.ID().getText();
        if (ctx.INTTYPE() != null) {
            Value v = new Value(ID, VarType.INT, 0);
-           variables.put(ID, v);
-           gramatykaGenerator.scanf(ID, "int");
+           if (ctx.GLOBAL() != null) {
+               globalVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "int", true);
+           } else if (ctx.GLOBAL() == null) {
+               localVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "int", false);
+           }
        } else if (ctx.FLOAT() != null) {
            Value v = new Value(ID, VarType.FLOAT, 0);
-           variables.put(ID, v);
-           gramatykaGenerator.scanf(ID, "float");
+           if (ctx.GLOBAL() != null) {
+               globalVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "float", true);
+           } else if (ctx.GLOBAL() == null) {
+               localVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "float", false);
+           }
        } else if (ctx.DOUBLE() != null) {
            Value v = new Value(ID, VarType.DOUBLE, 0);
-           variables.put(ID, v);
-           gramatykaGenerator.scanf(ID, "double");
+           if (ctx.GLOBAL() != null) {
+               globalVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "double", true);
+           } else if (ctx.GLOBAL() == null) {
+               localVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "double", false);
+           }
        } else if (ctx.BOOLTYPE() != null) {
            Value v = new Value(ID, VarType.BOOLEAN, 0);
-           variables.put(ID, v);
-           gramatykaGenerator.scanf(ID, "boolean");
+           if (ctx.GLOBAL() != null) {
+               globalVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "boolean", true);
+           } else if (ctx.GLOBAL() == null) {
+               localVariables.put(ID, v);
+               gramatykaGenerator.scanf(ID, "boolean", false);
+           }
        } else if (ctx.STRINGTYPE() != null) {
            Value v = new Value(ID, VarType.STRING, BUFFER_SIZE-1);
-           variables.put(ID, v);
-           gramatykaGenerator.scanf_string(ID, BUFFER_SIZE);
+           if (ctx.GLOBAL() != null) {
+               globalVariables.put(ID, v);
+               gramatykaGenerator.scanf_string(ID, BUFFER_SIZE, true);
+           } else if (ctx.GLOBAL() == null) {
+               localVariables.put(ID, v);
+               gramatykaGenerator.scanf_string(ID, BUFFER_SIZE, false);
+           }
        } else {
            error(ctx.getStart().getLine(), "wrong type for input");
        }
@@ -309,12 +491,22 @@ public class gramatykaActions extends gramatykaBaseListener {
         String ID = "";
         if( ctx.ID(0) != null ) {
             ID = ctx.ID(0).getText();
-            if( variables.containsKey(ID) ) {
-                Value v = variables.get(ID);
-                if (v.type == VarType.INT) {
-                    gramatykaGenerator.load_int(ID);
+            if(globalVariables.containsKey(ID) || localVariables.containsKey(ID) ) {
+                Value v = null;
+                if (localVariables.containsKey(ID)) {
+                    v = localVariables.get( ID );
+                    if (v.type == VarType.INT) {
+                        gramatykaGenerator.load_int(ID, false);
+                    }
+                    stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
                 }
-                stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
+                else if (globalVariables.containsKey(ID)) {
+                    v = globalVariables.get( ID );
+                    if (v.type == VarType.INT) {
+                        gramatykaGenerator.load_int(ID, true);
+                    }
+                    stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
+                }
             }
             else {
                 error(ctx.getStart().getLine(), "unknown variable ");
@@ -322,12 +514,22 @@ public class gramatykaActions extends gramatykaBaseListener {
         }
         if ( ctx.ID(1) != null ) {
             ID = ctx.ID(1).getText();
-            if( variables.containsKey(ID) ) {
-                Value v = variables.get(ID);
-                if (v.type == VarType.INT) {
-                    gramatykaGenerator.load_int(ID);
+            if(globalVariables.containsKey(ID) || localVariables.containsKey(ID) ) {
+                Value v = null;
+                if (localVariables.containsKey(ID)) {
+                    v = localVariables.get( ID );
+                    if (v.type == VarType.INT) {
+                        gramatykaGenerator.load_int(ID, false);
+                    }
+                    stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
                 }
-                stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
+                else if (globalVariables.containsKey(ID)) {
+                    v = globalVariables.get( ID );
+                    if (v.type == VarType.INT) {
+                        gramatykaGenerator.load_int(ID, true);
+                    }
+                    stack.push(new Value("%" + (gramatykaGenerator.reg - 1), v.type, v.length));
+                }
             }
             else {
                 error(ctx.getStart().getLine(), "unknown variable "+ID);
@@ -371,12 +573,22 @@ public class gramatykaActions extends gramatykaBaseListener {
     public void exitRepetitions(gramatykaParser.RepetitionsContext ctx) {
         if (ctx.ID() != null) {
             String ID = ctx.ID().getText();
-            if( variables.containsKey(ID) ) {
-                Value v = variables.get(ID);
-                if (v.type == VarType.INT) {
-                    gramatykaGenerator.load_int(ID);
+            if(globalVariables.containsKey(ID) || localVariables.containsKey(ID) ) {
+                Value v = null;
+                if (localVariables.containsKey(ID)) {
+                    v = localVariables.get( ID );
+                    if (v.type == VarType.INT) {
+                        gramatykaGenerator.load_int(ID, false);
+                    }
+                    gramatykaGenerator.repeatstart(v.name);
                 }
-                gramatykaGenerator.repeatstart(v.name);
+                else if (globalVariables.containsKey(ID)) {
+                    v = globalVariables.get( ID );
+                    if (v.type == VarType.INT) {
+                        gramatykaGenerator.load_int(ID, true);
+                    }
+                    gramatykaGenerator.repeatstart(v.name);
+                }
             }
             else {
                 error(ctx.getStart().getLine(), "unknown variable ");

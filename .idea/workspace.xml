@@ -18,6 +18,50 @@
       <change beforePath="$PROJECT_DIR$/gramatykaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaLexer.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gramatykaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gramatykaParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/Value.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/VarType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/VarType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.g4" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatyka.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaActions.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaActions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaBaseListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaBaseListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ArrayContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ArrayContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$AssignContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$AssignContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$BlockContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$BlockContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ConditionContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ConditionContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr1Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr1Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr2Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr2Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr3Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr3Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr_logicContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr_logicContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr_parContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Expr_parContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$IfContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$IfContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$InputContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$InputContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_oppContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_oppContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_parContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_parContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_valContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_valContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_valueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Logic_valueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$MatrixContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$MatrixContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$MultidivideContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$MultidivideContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$NegContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$NegContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$OutputContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$OutputContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$PlusminusContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$PlusminusContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ProgContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ProgContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$RepeatContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$RepeatContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$RepetitionsContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$RepetitionsContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single1Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single1Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single2Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single2Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single4Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$Single4Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$StatContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$StatContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ValueContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser$ValueContext.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/gramatykaParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/testujemy.ll" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/testujemy.ll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/kompilatorek/testujemy.pl" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/kompilatorek/testujemy.pl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testujemy.ll" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.ll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testujemy.pl" beforeDir="false" afterPath="$PROJECT_DIR$/testujemy.pl" afterDir="false" />
     </list>
@@ -43,28 +87,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "karim",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Politechnika/Kompilatory/kompilatorek/testujemy.pl",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.scopes",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;karim&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Politechnika/Kompilatory/kompilatorek&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Politechnika\Kompilatory\kompilatorek" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -112,7 +159,14 @@
       <workItem from="1712238540943" duration="890000" />
       <workItem from="1712310926097" duration="5169000" />
       <workItem from="1712774534088" duration="16050000" />
-      <workItem from="1712835703729" duration="29243000" />
+      <workItem from="1712835703729" duration="29677000" />
+      <workItem from="1712916911707" duration="4535000" />
+      <workItem from="1713165826935" duration="4000" />
+      <workItem from="1713256946296" duration="47000" />
+      <workItem from="1713428930227" duration="8133000" />
+      <workItem from="1713448907819" duration="615000" />
+      <workItem from="1713519696181" duration="1305000" />
+      <workItem from="1713522080083" duration="2595000" />
     </task>
     <servers />
   </component>
